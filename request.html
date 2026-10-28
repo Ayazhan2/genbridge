@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Request a Session{% endblock %}
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Book a session with {{ mentor.name }}</h1>
+    <p class="lead">{{ mentor.field }} · {{ mentor.years }} years of experience</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    {% if errors %}
+      <div class="errors">{% for e in errors %}<p>⚠ {{ e }}</p>{% endfor %}</div>
+    {% endif %}
+    <form method="post" class="form">
+      <label>Your name
+        <input type="text" name="name" value="{{ form.name }}" required>
+      </label>
+      <label>Your e-mail
+        <input type="email" name="email" value="{{ form.email }}" required>
+      </label>
+      <label>What would you like to ask?
+        <textarea name="message" rows="4">{{ form.message }}</textarea>
+      </label>
+      <button type="submit" class="btn btn-primary">Send request</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Job Trends{% endblock %}
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Which jobs are growing?</h1>
+    <p class="lead">Top 10 fastest-growing and fastest-declining jobs from 2025 to 2030, according to the World Economic Forum <em>Future of Jobs Report 2025</em>.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container cards two">
+    <div class="card">
+      <h2 class="green">▲ Fastest-growing</h2>
+      <ol id="growing" class="rank-list"><li>Loading…</li></ol>
+    </div>
+    <div class="card">
+      <h2 class="red">▼ Fastest-declining</h2>
+      <ol id="declining" class="rank-list"><li>Loading…</li></ol>
+    </div>
+  </div>
+  <div class="container center">
+    <p>Is your job on the list?</p>
+    <a href="{{ url_for('check') }}" class="btn btn-primary">Check my career</a>
+  </div>
+</section>
+
+<!-- JavaScript asks our backend API for the jobs and builds the two lists -->
+<script src="{{ url_for('static', filename='trends.js') }}"></script>
+{% endblock %}

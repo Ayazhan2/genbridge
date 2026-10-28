@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Mentors{% endblock %}
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Learn from people who have done it</h1>
+    <p class="lead">Our mentors are 50+ and share real experience from their careers.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% if mentors %}
+      <div class="cards three">
+        {% for m in mentors %}
+        <div class="card mentor">
+          <div class="avatar">{{ m.name[:1]|upper }}</div>
+          <h3>{{ m.name }}</h3>
+          <p class="meta">{{ m.field }} · {{ m.years }} years</p>
+          {% if m.topics %}<p>{{ m.topics }}</p>{% endif %}
+          <a href="{{ url_for('request_session', mentor_id=m.id) }}" class="btn btn-outline">Request a session</a>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="result neutral">
+        <h2>No mentors yet</h2>
+        <p>Be the first one to share your experience!</p>
+        <a href="{{ url_for('join') }}" class="btn btn-primary">Become a mentor</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Become a Mentor{% endblock %}
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Share your experience and earn</h1>
+    <p class="lead">You worked for many years. Young people need exactly that knowledge. Sign up and we will show your profile on the Mentors page.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    {% if errors %}
+      <div class="errors">{% for e in errors %}<p>⚠ {{ e }}</p>{% endfor %}</div>
+    {% endif %}
+    <form method="post" class="form">
+      <label>Full name
+        <input type="text" name="name" value="{{ form.name }}" required>
+      </label>
+      <label>E-mail (not shown publicly)
+        <input type="email" name="email" value="{{ form.email }}" required>
+      </label>
+      <label>Field of experience
+        <input type="text" name="field" value="{{ form.field }}" placeholder="e.g. Banking, Accounting, Logistics" required>
+      </label>
+      <label>Years of experience
+        <input type="number" name="years" value="{{ form.years }}" min="1" max="70" required>
+      </label>
+      <label>What can you teach? (optional)
+        <textarea name="topics" rows="3" placeholder="e.g. how a bank works from the inside, negotiation, career advice">{{ form.topics }}</textarea>
+      </label>
+      <button type="submit" class="btn btn-primary">Join as a mentor</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

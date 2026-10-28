@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}GenBridge{% endblock %} – Experience meets the future of work</title>
+  <meta name="description" content="GenBridge shows which jobs are growing or declining and connects young people with mentors aged 50+.">
+
+  {% if ga_id %}
+  <!-- Google Analytics 4 tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ ga_id }}');
+  </script>
+  {% else %}
+  <script>function gtag(){}</script>
+  {% endif %}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="{{ url_for('home') }}" class="logo">Gen<span>Bridge</span></a>
+      <!-- Mobile menu without JavaScript: a hidden checkbox opens/closes the menu -->
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="menu-button" aria-label="Open menu">☰</label>
+      <nav class="menu">
+        <a href="{{ url_for('trends') }}">Trends</a>
+        <a href="{{ url_for('check') }}">Career Check</a>
+        <a href="{{ url_for('mentors') }}">Mentors</a>
+        <a href="{{ url_for('join') }}" class="menu-cta">Become a Mentor</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong>GenBridge</strong> – a student project for Social Media Analytics, Woosong University, 2026.</p>
+      <p>Job data: World Economic Forum, <em>Future of Jobs Report 2025</em>. Population data: Statistics Korea.</p>
+    </div>
+  </footer>
+</body>
+</html>

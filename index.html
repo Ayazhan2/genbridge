@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow">For young people and experienced professionals 50+</p>
+      <h1>Experience meets<br>the future of work</h1>
+      <p class="lead">See which jobs are growing, check if your own career is future-proof, and learn from mentors who have done it before.</p>
+      <div class="buttons">
+        <a href="{{ url_for('check') }}" class="btn btn-primary">Check my career</a>
+        <a href="{{ url_for('mentors') }}" class="btn btn-outline">Find a mentor</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <p class="stat">21.6%</p>
+      <p>of people in Korea are 65 or older in 2026</p>
+      <hr>
+      <p class="stat">170M</p>
+      <p>new jobs expected worldwide by 2030 – and 92M jobs displaced</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Two generations, one bridge</h2>
+    <div class="cards three">
+      <div class="card">
+        <div class="icon">🔎</div>
+        <h3>1. Check your job</h3>
+        <p>Type your job and see if it is growing or declining, based on the World Economic Forum 2025 report.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🤝</div>
+        <h3>2. Find a mentor</h3>
+        <p>Browse people aged 50+ who share real experience from their field.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📅</div>
+        <h3>3. Book a session</h3>
+        <p>Send a short request. The mentor earns money, you get practical advice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container split">
+    <div>
+      <h2>Why GenBridge?</h2>
+      <p>Jobs are changing fast. Big data, FinTech and AI roles grow the fastest, while bank tellers, cashiers and data entry clerks decline.</p>
+      <p>At the same time, many experienced people in Korea leave their main job around age 49 and still want to work. Their knowledge is too valuable to lose.</p>
+      <a href="{{ url_for('trends') }}" class="btn btn-outline">See the job trends</a>
+    </div>
+    <div class="card highlight">
+      <h3>Are you 50+?</h3>
+      <p>Share your experience with young people and earn from it.</p>
+      <p class="small">{{ mentor_count }} mentor{{ '' if mentor_count == 1 else 's' }} already joined.</p>
+      <a href="{{ url_for('join') }}" class="btn btn-primary">Become a mentor</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

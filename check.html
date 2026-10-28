@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Career Check{% endblock %}
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Is your job future-proof?</h1>
+    <p class="lead">Type your job title (or a part of it, for example “bank” or “data”).</p>
+    <form action="{{ url_for('check') }}" method="get" class="search">
+      <label for="job" class="sr-only">Job title</label>
+      <input type="text" id="job" name="job" value="{{ job }}" placeholder="e.g. Bank Teller" required>
+      <button type="submit" class="btn btn-primary">Check</button>
+    </form>
+  </div>
+</section>
+
+{% if job %}
+<section class="section">
+  <div class="container">
+    {% if result and result.trend == "growing" %}
+      <div class="result good">
+        <p class="tag">▲ Growing</p>
+        <h2>Good news! {{ result.title }}</h2>
+        <p>This job is <strong>#{{ result.rank }}</strong> among the 10 fastest-growing jobs until 2030.</p>
+        <p>Want to grow even faster? Learn from someone who has done it.</p>
+        <a href="{{ url_for('mentors') }}" class="btn btn-primary">Find a mentor</a>
+      </div>
+    {% elif result %}
+      <div class="result bad">
+        <p class="tag">▼ Declining</p>
+        <h2>{{ result.title }}</h2>
+        <p>This job is <strong>#{{ result.rank }}</strong> among the 10 fastest-declining jobs until 2030.</p>
+        <p>Your experience is still valuable. Related jobs you could move to: <strong>{{ result.related }}</strong>.</p>
+        <a href="{{ url_for('mentors') }}" class="btn btn-primary">Talk to a mentor</a>
+      </div>
+    {% else %}
+      <div class="result neutral">
+        <h2>“{{ job }}” is not in our list yet</h2>
+        <p>Our database contains the top-10 growing and declining jobs from the WEF 2025 report. Try another word, or look at all <a href="{{ url_for('trends') }}">job trends</a>.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+<!-- Send a custom event to Google Analytics: which job was checked and what the result was -->
+<script>
+  gtag('event', 'career_check', {
+    job_query: {{ job|tojson }},
+    job_trend: {{ (result.trend if result else 'unknown')|tojson }}
+  });
+</script>
+{% endif %}
+{% endblock %}

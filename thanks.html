@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Thank you{% endblock %}
+{% block content %}
+<section class="page-head">
+  <div class="container narrow center">
+    {% if kind == "mentor" %}
+      <h1>Welcome to GenBridge! 🎉</h1>
+      <p class="lead">Your mentor profile is now on the Mentors page.</p>
+      <a href="{{ url_for('mentors') }}" class="btn btn-primary">See all mentors</a>
+    {% else %}
+      <h1>Request sent! ✉️</h1>
+      <p class="lead">The mentor will contact you by e-mail.</p>
+      <a href="{{ url_for('home') }}" class="btn btn-primary">Back to home</a>
+    {% endif %}
+  </div>
+</section>
+<!-- Google Analytics conversion event: mentor_signup or session_request -->
+<script>
+  gtag('event', {{ ('mentor_signup' if kind == 'mentor' else 'session_request')|tojson }});
+</script>
+{% endblock %}
