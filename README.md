@@ -13,7 +13,7 @@ The website shows which jobs are growing or declining (based on the World Econom
 - **Become a Mentor** – sign-up form with server-side validation
 - **Request a Session** – send a request to a mentor
 - **Google Analytics 4 + Matomo** – page views + custom events (`career_check`, `mentor_signup`, `session_request`, `social_click`, `share`)
-- **Share my result** – share a Career Check result on Facebook, copy the link, or use the phone's share menu
+- **Share my result** – copy a link to a Career Check result or use the phone's share menu
 
 ## Technologies
 | Part | Technology |
