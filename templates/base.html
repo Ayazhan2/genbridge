@@ -6,6 +6,19 @@
   <title>{% block title %}GenBridge{% endblock %} – Experience meets the future of work</title>
   <meta name="description" content="GenBridge shows which jobs are growing or declining and connects young people with mentors aged 50+.">
 
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GenBridge">
+  <meta property="og:title" content="{{ self.title() }} – Experience meets the future of work">
+  <meta property="og:description" content="GenBridge shows which jobs are growing or declining and connects young people with mentors aged 50+.">
+  <meta property="og:image" content="{{ site_url }}{{ url_for('static', filename='og-image.png') }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="{{ site_url }}{{ request.path }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ self.title() }} – Experience meets the future of work">
+  <meta name="twitter:description" content="GenBridge shows which jobs are growing or declining and connects young people with mentors aged 50+.">
+  <meta name="twitter:image" content="{{ site_url }}{{ url_for('static', filename='og-image.png') }}">
+
   {% if ga_id %}
   <!-- Google Analytics 4 tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
@@ -33,6 +46,12 @@
   })();
 </script>
 <!-- End Matomo Code -->
+  <script>
+    function track(event, network) {
+      gtag("event", event, { network: network });
+      _paq.push(["trackEvent", "Social", event, network]);
+    }
+  </script>
  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
@@ -62,6 +81,15 @@
     <div class="container">
       <p><strong>GenBridge</strong> – a student project for Social Media Analytics, Woosong University, 2026.</p>
       <p>Job data: World Economic Forum, <em>Future of Jobs Report 2025</em>. Population data: Statistics Korea.</p>
+      <div class="follow">
+        <strong>Follow us</strong>
+        {% if instagram_url %}
+        <a href="{{ instagram_url }}" target="_blank" rel="noopener" onclick="track('social_click', 'instagram')">Instagram</a>
+        {% endif %}
+        {% if facebook_url %}
+        <a href="{{ facebook_url }}" target="_blank" rel="noopener" onclick="track('social_click', 'facebook')">Facebook</a>
+        {% endif %}
+      </div>
     </div>
   </footer>
 </body>

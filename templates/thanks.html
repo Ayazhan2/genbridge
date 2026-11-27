@@ -17,5 +17,6 @@
 <!-- Google Analytics conversion event: mentor_signup or session_request -->
 <script>
   gtag('event', {{ ('mentor_signup' if kind == 'mentor' else 'session_request')|tojson }});
+  _paq.push(["trackEvent", "Conversion", {{ ('mentor_signup' if kind == 'mentor' else 'session_request')|tojson }}]);
 </script>
 {% endblock %}

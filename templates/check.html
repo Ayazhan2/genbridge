@@ -32,6 +32,16 @@
         <p>Your experience is still valuable. Related jobs you could move to: <strong>{{ result.related }}</strong>.</p>
         <a href="{{ url_for('mentors') }}" class="btn btn-primary">Talk to a mentor</a>
       </div>
+    {% endif %}
+    {% if result %}
+      <div class="share">
+        <p><strong>Share my result</strong></p>
+        <div class="buttons">
+          <button type="button" id="share-native" class="btn btn-primary" hidden>Share</button>
+          <a href="#" id="share-facebook" class="btn btn-outline" target="_blank" rel="noopener">Facebook</a>
+          <button type="button" id="share-copy" class="btn btn-outline">Copy link</button>
+        </div>
+      </div>
     {% else %}
       <div class="result neutral">
         <h2>“{{ job }}” is not in our list yet</h2>
@@ -46,6 +56,40 @@
     job_query: {{ job|tojson }},
     job_trend: {{ (result.trend if result else 'unknown')|tojson }}
   });
+  _paq.push(["trackEvent", "Career Check", "career_check", {{ job|tojson }}]);
 </script>
+{% if result %}
+<script>
+  const shareJob   = {{ result.title|tojson }};
+  const shareTrend = {{ result.trend|tojson }};
+  const shareText  = `${shareJob} is ${shareTrend} until 2030. Is your job future-proof? Check it on GenBridge`;
+
+  function shareUrl(network) {
+    return `{{ site_url }}{{ url_for('check') }}?job=${encodeURIComponent(shareJob)}&utm_source=${network}&utm_medium=social&utm_campaign=share_result`;
+  }
+
+  const facebookBtn = document.getElementById("share-facebook");
+  facebookBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl("facebook"))}`;
+  facebookBtn.addEventListener("click", () => track("share", "facebook"));
+
+  const copyBtn = document.getElementById("share-copy");
+  copyBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText(shareUrl("copy_link")).then(() => {
+      copyBtn.textContent = "Copied!";
+      track("share", "copy_link");
+    });
+  });
+
+  const nativeBtn = document.getElementById("share-native");
+  if (navigator.share) {
+    nativeBtn.hidden = false;
+    nativeBtn.addEventListener("click", () => {
+      navigator.share({ title: "GenBridge", text: shareText, url: shareUrl("web_share") })
+        .then(() => track("share", "web_share"))
+        .catch(() => {});
+    });
+  }
+</script>
+{% endif %}
 {% endif %}
 {% endblock %}

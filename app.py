@@ -14,6 +14,10 @@ DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "genbridge.db")
 # Google Analytics 4 Measurement ID – paste yours here on Friday (looks like "G-ABC123XYZ")
 GA_ID = "G-86DMMSYZN9"
 
+SITE_URL      = "https://genbridgekr.pythonanywhere.com"
+INSTAGRAM_URL = "https://www.instagram.com/genbridge_sma/"
+FACEBOOK_URL  = ""
+
 
 def get_db():
     """Open the database. row_factory lets us use column names: row["title"]."""
@@ -25,7 +29,12 @@ def get_db():
 @app.context_processor
 def add_ga_id():
     """Makes GA_ID available in every template (used in base.html)."""
-    return {"ga_id": GA_ID}
+    return {
+        "ga_id": GA_ID,
+        "site_url": SITE_URL,
+        "instagram_url": INSTAGRAM_URL,
+        "facebook_url": FACEBOOK_URL,
+    }
 
 
 def find_job(text):
