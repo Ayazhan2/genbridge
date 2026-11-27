@@ -56,6 +56,8 @@ actions on site     career_check, share, social_click, mentor_signup, session_re
 
 Social links are set in one place in `app.py` (`INSTAGRAM_URL`, `FACEBOOK_URL`). An empty value hides the link.
 
+The Instagram bio links to the short address `/ig`. It redirects to the home page with `utm_source=instagram&utm_medium=social&utm_campaign=genbridge_launch`.
+
 ## How to run locally
 ```bash
 pip install flask

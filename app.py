@@ -58,6 +58,12 @@ def home():
     return render_template("index.html", mentor_count=mentor_count)
 
 
+@app.route("/ig")
+def instagram_bio_link():
+    utm = {"utm_source": "instagram", "utm_medium": "social", "utm_campaign": "genbridge_launch"}
+    return redirect(url_for("home", **utm, **{k: v for k, v in request.args.items() if k not in utm}))
+
+
 @app.route("/trends")
 def trends():
     return render_template("trends.html")
